@@ -2,6 +2,7 @@ using BikeWorkshop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using BikeWorkshop.Infrastructure.Extensions;
 using BikeWorkshop.Infrastructure.Seeders;
+using BikeWorkshop.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 var scope = app.Services.CreateScope();

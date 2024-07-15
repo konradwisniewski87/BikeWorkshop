@@ -1,4 +1,6 @@
-﻿using BikeWorkshop.Infrastructure.Persistence;
+﻿using BikeWorkshop.Domain.Interfaces;
+using BikeWorkshop.Infrastructure.Persistence;
+using BikeWorkshop.Infrastructure.Repositorys;
 using BikeWorkshop.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +24,8 @@ namespace BikeWorkshop.Infrastructure.Extensions
                 );
 
             services.AddScoped<BikeWorkshopSeeder>();
+
+            services.AddScoped<IBikeWorkshopRepository, BikeWorkshopRepository>();
         }
     }
 }
