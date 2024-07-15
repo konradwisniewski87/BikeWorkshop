@@ -26,6 +26,7 @@ namespace BikeWorkshop.Infrastructure.Seeders
                     {
                         Name = "Kross",
                         Description = "Authorized service of Kross",
+                        About = "Very noce service",
                         ContactDetails = new()
                         {
                             PhoneNumber = "+48297521100",

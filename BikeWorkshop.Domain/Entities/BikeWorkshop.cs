@@ -15,5 +15,6 @@ namespace BikeWorkshop.Domain.Entities
         public BikeWorkshopContactDetails ContactDetails { get; set; } = default!;
         public string EncodedName { get; private set; } = default!;
         public string EncodName() => EncodedName = Name.ToLower().Replace(" ", "-");
+        public string? About { get; set; }
     }
 }
