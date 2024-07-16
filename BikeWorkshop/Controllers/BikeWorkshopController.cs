@@ -1,4 +1,5 @@
-﻿using BikeWorkshop.Application.Services;
+﻿using BikeWorkshop.Application.BikeWorkshop;
+using BikeWorkshop.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeWorkshop.MVC.Controllers
@@ -19,9 +20,9 @@ namespace BikeWorkshop.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Domain.Entities.BikeWorkshop bikeWorkshop)
+        public async Task<IActionResult> Create(BikeWorkshopDto bikeWorkshopDto)
         {
-            await _bikeWorkshopService.Create(bikeWorkshop);
+            await _bikeWorkshopService.Create(bikeWorkshopDto);
             return RedirectToAction(nameof(Create)); //TODO: Refactor
         }
     }

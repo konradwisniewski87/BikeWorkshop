@@ -1,8 +1,10 @@
 ﻿
+using BikeWorkshop.Application.BikeWorkshop;
+
 namespace BikeWorkshop.Application.Services
 {
     public interface IBikeWorkshopService
     {
-        Task Create(Domain.Entities.BikeWorkshop bikeWorkshop);
+        Task Create(BikeWorkshopDto bikeWorkshop);
     }
 }

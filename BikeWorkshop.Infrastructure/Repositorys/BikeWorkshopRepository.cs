@@ -14,6 +14,7 @@ namespace BikeWorkshop.Infrastructure.Repositorys
 
         public async Task Create(Domain.Entities.BikeWorkshop bikeWorkshop)
         {
+            bikeWorkshop.EncodName();
             _dbContext.Add(bikeWorkshop);
             await _dbContext.SaveChangesAsync();
         }

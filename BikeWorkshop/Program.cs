@@ -1,5 +1,3 @@
-using BikeWorkshop.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using BikeWorkshop.Infrastructure.Extensions;
 using BikeWorkshop.Infrastructure.Seeders;
 using BikeWorkshop.Application.Extensions;
