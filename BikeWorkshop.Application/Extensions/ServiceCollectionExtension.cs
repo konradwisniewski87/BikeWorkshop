@@ -1,5 +1,7 @@
 ﻿using BikeWorkshop.Application.Mappings;
 using BikeWorkshop.Application.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BikeWorkshop.Application.Extensions
@@ -11,6 +13,10 @@ namespace BikeWorkshop.Application.Extensions
             services.AddScoped<IBikeWorkshopService, BikeWorkshopService>();
 
             services.AddAutoMapper(typeof(BikeWorkshopMappingProfile));
+
+            services.AddValidatorsFromAssemblyContaining<BikeWorkshopDtoValidator>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
         }
     }
 }

@@ -22,6 +22,10 @@ namespace BikeWorkshop.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BikeWorkshopDto bikeWorkshopDto)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(bikeWorkshopDto);
+            }
             await _bikeWorkshopService.Create(bikeWorkshopDto);
             return RedirectToAction(nameof(Create)); //TODO: Refactor
         }

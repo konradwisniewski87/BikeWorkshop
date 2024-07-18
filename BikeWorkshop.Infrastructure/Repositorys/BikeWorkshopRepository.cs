@@ -1,5 +1,7 @@
 ﻿using BikeWorkshop.Domain.Interfaces;
 using BikeWorkshop.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Channels;
 
 namespace BikeWorkshop.Infrastructure.Repositorys
 {
@@ -18,5 +20,8 @@ namespace BikeWorkshop.Infrastructure.Repositorys
             _dbContext.Add(bikeWorkshop);
             await _dbContext.SaveChangesAsync();
         }
+
+        public Task<Domain.Entities.BikeWorkshop?> GetByName(string name)
+        => _dbContext.BikeWorkshops.FirstOrDefaultAsync( cn => cn.Name.ToLower() == name.ToLower());   
     }
 }
