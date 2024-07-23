@@ -4,5 +4,6 @@
     {
         Task Create(Domain.Entities.BikeWorkshop bikeWorkshop);
         Task<Domain.Entities.BikeWorkshop?> GetByName(string name);
+        Task<IEnumerable<Domain.Entities.BikeWorkshop>> GetAll();
     }
 }

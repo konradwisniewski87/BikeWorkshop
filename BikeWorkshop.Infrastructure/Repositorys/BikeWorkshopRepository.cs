@@ -1,4 +1,5 @@
-﻿using BikeWorkshop.Domain.Interfaces;
+﻿using BikeWorkshop.Application.BikeWorkshop;
+using BikeWorkshop.Domain.Interfaces;
 using BikeWorkshop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Channels;
@@ -22,6 +23,10 @@ namespace BikeWorkshop.Infrastructure.Repositorys
         }
 
         public Task<Domain.Entities.BikeWorkshop?> GetByName(string name)
-        => _dbContext.BikeWorkshops.FirstOrDefaultAsync( cn => cn.Name.ToLower() == name.ToLower());   
+            => _dbContext.BikeWorkshops.FirstOrDefaultAsync( cn => cn.Name.ToLower() == name.ToLower());
+
+        public async Task<IEnumerable<Domain.Entities.BikeWorkshop>> GetAll()
+            => await _dbContext.BikeWorkshops.ToListAsync();
+
     }
 }

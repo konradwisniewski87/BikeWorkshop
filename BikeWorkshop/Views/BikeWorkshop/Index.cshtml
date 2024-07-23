@@ -1,0 +1,26 @@
+﻿@model IEnumerable<BikeWorkshop.Application.BikeWorkshop.BikeWorkshopDto>
+
+@{
+    ViewData["Title"] = "Bike Workshops";
+}
+
+<h1>Bike Workshops</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Create New</a>
+</p>
+
+<div class="row">
+    @foreach(var element in Model)
+    {
+        <div class="card m-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@element.Name</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@element.PhoneNumber</h6>
+                <p class="card-text">@element.Description</p>
+                <a href="#" class="btn btn-primary">Details</a>
+                <a href="#" class="btn btn-outline-secondary">Edit</a>
+            </div>
+        </div>
+    }
+</div>

@@ -27,7 +27,14 @@ namespace BikeWorkshop.MVC.Controllers
                 return View(bikeWorkshopDto);
             }
             await _bikeWorkshopService.Create(bikeWorkshopDto);
-            return RedirectToAction(nameof(Create)); //TODO: Refactor
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> Index()
+        {
+            var bikeWorkshopDto = await _bikeWorkshopService.GetAll();
+            return View(bikeWorkshopDto);
         }
     }
 }
