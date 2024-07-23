@@ -36,5 +36,10 @@ namespace BikeWorkshop.MVC.Controllers
             var bikeWorkshopDto = await _bikeWorkshopService.GetAll();
             return View(bikeWorkshopDto);
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }
