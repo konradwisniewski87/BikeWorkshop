@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeWorkshop.Infrastructure.Persistence
 {
-    public class BikeWorkshopDbContext : DbContext
+    public class BikeWorkshopDbContext : IdentityDbContext
     {
         public BikeWorkshopDbContext(DbContextOptions<BikeWorkshopDbContext> options) : base(options)
         {
@@ -16,6 +17,8 @@ namespace BikeWorkshop.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Domain.Entities.BikeWorkshop>()
                 .OwnsOne(e => e.ContactDetails);
         }

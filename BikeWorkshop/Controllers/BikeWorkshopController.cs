@@ -1,5 +1,6 @@
 ﻿using BikeWorkshop.Application.BikeWorkshop;
 using BikeWorkshop.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeWorkshop.MVC.Controllers
@@ -13,16 +14,28 @@ namespace BikeWorkshop.MVC.Controllers
             _bikeWorkshopService = bikeWorkshopService;
         }
 
+        //      [HttpGet]
+        //      public IActionResult Create()
+        //      {
+        //          if(User.Identity == null || !User.Identity.IsAuthenticated)
+        //          {
+        //              return RedirectToPage("/Account/Login", new { area= "Identity" });
+        //          }
+        //	return View();
+        //}
+
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BikeWorkshopDto bikeWorkshopDto)
+		[Authorize]
+		public async Task<IActionResult> Create(BikeWorkshopDto bikeWorkshopDto)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(bikeWorkshopDto);
             }
@@ -41,5 +54,10 @@ namespace BikeWorkshop.MVC.Controllers
         {
             return View();
         }
-    }
+
+        public IActionResult Home()
+        {
+            return RedirectToAction(nameof(Index));
+		}
+	}
 }

@@ -35,4 +35,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=BikeWorkshop}/{action=Index}/{id?}");
 
+app.MapRazorPages();
+
 app.Run();

@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeWorkshop.MVC", "BikeWorkshop\BikeWorkshop.MVC.csproj", "{44473D0E-C823-4D16-9B5E-D44E9F3A02BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWorkshop.Domain", "BikeWorkshop.Domain\BikeWorkshop.Domain.csproj", "{597B9D52-73FF-433D-863D-DB7F3A95280F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeWorkshop.Domain", "BikeWorkshop.Domain\BikeWorkshop.Domain.csproj", "{597B9D52-73FF-433D-863D-DB7F3A95280F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWorkshop.Application", "BikeWorkshop.Application\BikeWorkshop.Application.csproj", "{B6A73CD8-50B2-4778-941B-8339FFEF3FAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeWorkshop.Application", "BikeWorkshop.Application\BikeWorkshop.Application.csproj", "{B6A73CD8-50B2-4778-941B-8339FFEF3FAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWorkshop.Infrastructure", "BikeWorkshop.Infrastructure\BikeWorkshop.Infrastructure.csproj", "{CFE15B6E-A12A-4D37-83E2-31F1EB83E0B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeWorkshop.Infrastructure", "BikeWorkshop.Infrastructure\BikeWorkshop.Infrastructure.csproj", "{CFE15B6E-A12A-4D37-83E2-31F1EB83E0B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

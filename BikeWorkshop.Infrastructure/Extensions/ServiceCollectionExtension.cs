@@ -2,6 +2,7 @@
 using BikeWorkshop.Infrastructure.Persistence;
 using BikeWorkshop.Infrastructure.Repositorys;
 using BikeWorkshop.Infrastructure.Seeders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,9 @@ namespace BikeWorkshop.Infrastructure.Extensions
             services.AddDbContext<BikeWorkshopDbContext>(
                 options => options.UseSqlServer(_ConnectionStrings)
                 );
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<BikeWorkshopDbContext>();
 
             services.AddScoped<BikeWorkshopSeeder>();
 
