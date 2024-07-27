@@ -1,4 +1,6 @@
-﻿namespace BikeWorkshop.Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace BikeWorkshop.Domain.Entities
 {
     public class BikeWorkshop
     {
@@ -10,5 +12,7 @@
         public string EncodedName { get; private set; } = default!;
         public string EncodName() => EncodedName = Name.ToLower().Replace(" ", "-");
         public string? About { get; set; }
-    }
+        public string? CreatedById { get; set; }
+		public IdentityUser? CreatedBy { get; set; }
+	}
 }

@@ -20,6 +20,7 @@ namespace BikeWorkshop.Application.BikeWorkshop.Queries.GetAllBikeWorkshop
 			_bikeWorkshopRepository = bikeWorkshopRepository;
 			_mapper = mapper;
 		}
+		public IBikeWorkshopRepository CarWorkshopRepository { get; }
 
 		public async Task<IEnumerable<BikeWorkshopDto>> Handle(GetAllBikeWorkshopQuery request, CancellationToken cancellationToken)
 		{

@@ -1,4 +1,5 @@
-﻿using BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop;
+﻿using BikeWorkshop.Application.ApplicationUser;
+using BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop;
 using BikeWorkshop.Application.Mappings;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -11,6 +12,7 @@ namespace BikeWorkshop.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<IUserContext, UserContext>();
 			services.AddMediatR(typeof(CreateBikeWorkshopCommand));
 
             services.AddAutoMapper(typeof(BikeWorkshopMappingProfile));
