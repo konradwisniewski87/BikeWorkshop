@@ -1,18 +1,20 @@
 ﻿using BikeWorkshop.Application.BikeWorkshop;
-using BikeWorkshop.Application.Services;
+using BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop;
+using BikeWorkshop.Application.BikeWorkshop.Queries.GetAllBikeWorkshop;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeWorkshop.MVC.Controllers
 {
-    public class BikeWorkshopController : Controller
+	public class BikeWorkshopController : Controller
     {
-        private readonly IBikeWorkshopService _bikeWorkshopService;
+		private readonly IMediator _mediator;
 
-        public BikeWorkshopController(IBikeWorkshopService bikeWorkshopService)
+		public BikeWorkshopController(IMediator mediator)
         {
-            _bikeWorkshopService = bikeWorkshopService;
-        }
+			_mediator = mediator;
+		}
 
         //      [HttpGet]
         //      public IActionResult Create()
@@ -33,20 +35,20 @@ namespace BikeWorkshop.MVC.Controllers
 
         [HttpPost]
 		[Authorize]
-		public async Task<IActionResult> Create(BikeWorkshopDto bikeWorkshopDto)
+		public async Task<IActionResult> Create(CreateBikeWorkshopCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View(bikeWorkshopDto);
+                return View(command);
             }
-            await _bikeWorkshopService.Create(bikeWorkshopDto);
+            await _mediator.Send(command);
             return RedirectToAction(nameof(Index));
         }
 
 
         public async Task<IActionResult> Index()
         {
-            var bikeWorkshopDto = await _bikeWorkshopService.GetAll();
+            var bikeWorkshopDto = await _mediator.Send(new GetAllBikeWorkshopQuery());
             return View(bikeWorkshopDto);
         }
 

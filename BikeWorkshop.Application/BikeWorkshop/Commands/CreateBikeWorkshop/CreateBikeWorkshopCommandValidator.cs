@@ -2,17 +2,17 @@
 using BikeWorkshop.Domain.Interfaces;
 using FluentValidation;
 
-namespace BikeWorkshop.Application
+namespace BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop
 {
-    public class BikeWorkshopDtoValidator : AbstractValidator<BikeWorkshopDto>
+    public class CreateBikeWorkshopCommandValidator : AbstractValidator<CreateBikeWorkshopCommand>
     {
         private readonly int MinimumLengthOfName = 2;
         private readonly int MaximumLengthOfName = 20;
 
 
-        public BikeWorkshopDtoValidator(IBikeWorkshopRepository repository)
+        public CreateBikeWorkshopCommandValidator(IBikeWorkshopRepository repository)
         {
-            RuleFor( w => w.Name )
+            RuleFor(w => w.Name)
                 .NotEmpty()
                 .MinimumLength(MinimumLengthOfName).WithMessage($"Name should have atleast {MinimumLengthOfName} characters")
                 .MaximumLength(MaximumLengthOfName).WithMessage($"Name should have maximum {MaximumLengthOfName} characters")
