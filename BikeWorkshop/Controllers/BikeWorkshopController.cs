@@ -1,6 +1,7 @@
 ﻿using BikeWorkshop.Application.BikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Queries.GetAllBikeWorkshop;
+using BikeWorkshop.Application.BikeWorkshop.Queries.GetBikeWorkshopByEncodedName;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -57,7 +58,14 @@ namespace BikeWorkshop.MVC.Controllers
             return View();
         }
 
-        public IActionResult Home()
+        [Route("BikeWorkshop/{encodedName}/Details")]
+		public async Task<IActionResult> Details(string encodedName)
+		{
+            var bikeWorkshop = await _mediator.Send(new GetBikeWorkshopByEncodedNameQuery(encodedName));
+			return View(bikeWorkshop);
+		}
+
+		public IActionResult Home()
         {
             return RedirectToAction(nameof(Index));
 		}

@@ -28,5 +28,7 @@ namespace BikeWorkshop.Infrastructure.Repositorys
         public async Task<IEnumerable<Domain.Entities.BikeWorkshop>> GetAll()
             => await _dbContext.BikeWorkshops.ToListAsync();
 
-    }
+        public async Task<Domain.Entities.BikeWorkshop?> GetByEncodedName(string encodedName)
+            => await _dbContext.BikeWorkshops.FirstOrDefaultAsync(c => c.EncodedName == encodedName);
+	}
 }
