@@ -14,6 +14,7 @@ namespace BikeWorkshop.MVC.Controllers
 		private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
+
         public BikeWorkshopController(IMediator mediator, IMapper mapper)
         {
 			_mediator = mediator;
@@ -30,6 +31,9 @@ namespace BikeWorkshop.MVC.Controllers
         //	return View();
         //}
 
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- Create ---------------------------------
+        //------------------------------------------------------------------------------------------------
         [HttpGet]
         [Authorize]
         public IActionResult Create()
@@ -50,17 +54,28 @@ namespace BikeWorkshop.MVC.Controllers
         }
 
 
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- Index ----------------------------------
+        //------------------------------------------------------------------------------------------------
         public async Task<IActionResult> Index()
         {
             var bikeWorkshopDto = await _mediator.Send(new GetAllBikeWorkshopQuery());
             return View(bikeWorkshopDto);
         }
 
+
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- Privacy --------------------------------
+        //------------------------------------------------------------------------------------------------
         public IActionResult Privacy()
         {
             return View();
         }
 
+
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- Details --------------------------------
+        //------------------------------------------------------------------------------------------------
         [Route("BikeWorkshop/{encodedName}/Details")]
 		public async Task<IActionResult> Details(string encodedName)
 		{
@@ -68,13 +83,22 @@ namespace BikeWorkshop.MVC.Controllers
 			return View(bikeWorkshop);
 		}
 
+
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- Edit -----------------------------------
+        //------------------------------------------------------------------------------------------------
         [Route("BikeWorkshop/{encodedName}/Edit")]
         public async Task<IActionResult> Edit(string encodedName)
         {
             var bikeWorkshopDto = await _mediator.Send(new GetBikeWorkshopByEncodedNameQuery(encodedName));
+            if (!bikeWorkshopDto.IsEditable4You)
+            {
+                return RedirectToAction("NoAccess", "BikeWorkshop");
+            }
             EditBikeWorkshopCommand editBikeWorkshop = _mapper.Map<EditBikeWorkshopCommand>(bikeWorkshopDto);
             return View(editBikeWorkshop);
         }
+
         [HttpPost]
         [Route("BikeWorkshop/{encodedName}/Edit")]
         public async Task<IActionResult> Edit(string encodedName, EditBikeWorkshopCommand command)
@@ -82,11 +106,24 @@ namespace BikeWorkshop.MVC.Controllers
             if (!ModelState.IsValid)
             {
                 return View(command);
-            } 
+            }
             await _mediator.Send(command);
             return RedirectToAction(nameof(Index));
         }
 
+
+
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- Home -----------------------------------
+        //------------------------------------------------------------------------------------------------
+        public IActionResult NoAccess()
+        {
+            return View();
+        }
+
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- Home -----------------------------------
+        //------------------------------------------------------------------------------------------------
         public IActionResult Home()
         {
             return RedirectToAction(nameof(Index));

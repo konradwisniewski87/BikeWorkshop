@@ -9,19 +9,24 @@ namespace BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop
     public class EditBikeWorkshopCommandHandler : IRequest<EditBikeWorkshopCommand>
     {
         private readonly IBikeWorkshopRepository _bikeWorkshopRepository;
-        private readonly IMapper _mapper;
         private readonly IUserContext _userContext;
 
-        public EditBikeWorkshopCommandHandler(IBikeWorkshopRepository bikeWorkshopRepository, IMapper mapper, IUserContext userContext)
+        public EditBikeWorkshopCommandHandler(IBikeWorkshopRepository bikeWorkshopRepository, IUserContext userContext)
         {
             _bikeWorkshopRepository = bikeWorkshopRepository;
-            _mapper = mapper;
             _userContext = userContext;
         }
 
         public async Task<Unit> Handle(EditBikeWorkshopCommand request, CancellationToken cancellationToken)
         {
             var bikeWorkshop = await _bikeWorkshopRepository.GetByEncodedName(request.EncodedName!);
+
+            var user = _userContext.GetCurrentUser();
+            var isEditable = user != null && bikeWorkshop != null && bikeWorkshop.CreatedById == user.Id;
+            if(!isEditable)
+            {
+                return Unit.Value;
+            }
 
             bikeWorkshop.Description = request.Description;
             bikeWorkshop.About = request.About;
@@ -33,10 +38,6 @@ namespace BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop
 
             await _bikeWorkshopRepository.Commit();
 
-            //var bikeWorkshop = _mapper.Map<Domain.Entities.BikeWorkshop>(request);
-            //bikeWorkshop.EncodName();
-            //bikeWorkshop.CreatedById = _userContext.GetCurrentUser().Id;
-            //await _bikeWorkshopRepository.Create(bikeWorkshop);
             return Unit.Value;
         }
     }

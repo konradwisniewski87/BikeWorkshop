@@ -20,7 +20,10 @@
                 <p class="card-text">@element.Description</p>
                 @*<a href="BikeWorkshop/@element.EncodedName/Details" class="btn btn-primary">Details</a>*@
                 <a class="btn btn-primary" asp-controller="BikeWorkshop" asp-route-EncodedName="@element.EncodedName" asp-action="Details">Details</a>
-                <a class="btn btn-outline-secondary" asp-controller="BikeWorkshop" asp-route-EncodedName="@element.EncodedName" asp-action="Edit">Edit</a>
+                @if(element.IsEditable4You)
+                {
+                    <a class="btn btn-outline-secondary" asp-controller="BikeWorkshop" asp-route-EncodedName="@element.EncodedName" asp-action="Edit">Edit</a>
+                }
             </div>
         </div>
     }
