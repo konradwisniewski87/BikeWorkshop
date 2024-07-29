@@ -1,5 +1,6 @@
 ﻿using BikeWorkshop.Application.ApplicationUser;
 using BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop;
+using BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop;
 using BikeWorkshop.Application.Mappings;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -17,7 +18,7 @@ namespace BikeWorkshop.Application.Extensions
 
             services.AddAutoMapper(typeof(BikeWorkshopMappingProfile));
 
-            services.AddValidatorsFromAssemblyContaining<CreateBikeWorkshopCommandValidator>()
+            services.AddValidatorsFromAssemblyContaining<EditBikeWorkshopCommandValidator>()
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
         }

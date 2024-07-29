@@ -1,5 +1,6 @@
-﻿using BikeWorkshop.Application.BikeWorkshop;
+﻿using AutoMapper;
 using BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop;
+using BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Queries.GetAllBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Queries.GetBikeWorkshopByEncodedName;
 using MediatR;
@@ -8,14 +9,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BikeWorkshop.MVC.Controllers
 {
-	public class BikeWorkshopController : Controller
+    public class BikeWorkshopController : Controller
     {
 		private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-		public BikeWorkshopController(IMediator mediator)
+        public BikeWorkshopController(IMediator mediator, IMapper mapper)
         {
 			_mediator = mediator;
-		}
+            _mapper = mapper;
+        }
 
         //      [HttpGet]
         //      public IActionResult Create()
@@ -65,7 +68,26 @@ namespace BikeWorkshop.MVC.Controllers
 			return View(bikeWorkshop);
 		}
 
-		public IActionResult Home()
+        [Route("BikeWorkshop/{encodedName}/Edit")]
+        public async Task<IActionResult> Edit(string encodedName)
+        {
+            var bikeWorkshopDto = await _mediator.Send(new GetBikeWorkshopByEncodedNameQuery(encodedName));
+            EditBikeWorkshopCommand editBikeWorkshop = _mapper.Map<EditBikeWorkshopCommand>(bikeWorkshopDto);
+            return View(editBikeWorkshop);
+        }
+        [HttpPost]
+        [Route("BikeWorkshop/{encodedName}/Edit")]
+        public async Task<IActionResult> Edit(string encodedName, EditBikeWorkshopCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            } 
+            await _mediator.Send(command);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Home()
         {
             return RedirectToAction(nameof(Index));
 		}

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BikeWorkshop.Application.BikeWorkshop;
+using BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop;
 using BikeWorkshop.Domain.Entities;
 
 namespace BikeWorkshop.Application.Mappings
@@ -24,6 +25,8 @@ namespace BikeWorkshop.Application.Mappings
                 .ForMember(dst => dst.City,         opt => opt.MapFrom(src => src.ContactDetails.City))
                 .ForMember(dst => dst.PostalCode,   opt => opt.MapFrom(src => src.ContactDetails.PostalCode))
                 .ForMember(dst => dst.PhoneNumber,  opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber));
+
+            CreateMap<BikeWorkshopDto, EditBikeWorkshopCommand>();
         }
     }
 }

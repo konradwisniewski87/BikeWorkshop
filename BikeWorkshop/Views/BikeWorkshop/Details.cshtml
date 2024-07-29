@@ -55,6 +55,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a class="btn btn-outline-secondary" asp-controller="BikeWorkshop" asp-route-EncodedName="@Model.EncodedName" asp-action="Edit">Edit</a>
+    |
     <a asp-action="Index">Back to List</a>
 </div>

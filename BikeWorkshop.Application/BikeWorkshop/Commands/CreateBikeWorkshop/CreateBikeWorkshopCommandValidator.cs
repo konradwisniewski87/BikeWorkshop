@@ -1,5 +1,4 @@
-﻿using BikeWorkshop.Application.BikeWorkshop;
-using BikeWorkshop.Domain.Interfaces;
+﻿using BikeWorkshop.Domain.Interfaces;
 using FluentValidation;
 
 namespace BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop
