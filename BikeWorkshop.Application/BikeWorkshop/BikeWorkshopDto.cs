@@ -10,5 +10,6 @@
         public string? City { get; set; }
         public string? PostalCode { get; set; }
         public string? EncodedName { get; set; }
+        public bool IsEditable4You { get; set; }
     }
 }
