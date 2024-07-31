@@ -20,6 +20,7 @@ namespace BikeWorkshop.Infrastructure.Extensions
                 );
 
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BikeWorkshopDbContext>();
 
             services.AddScoped<BikeWorkshopSeeder>();

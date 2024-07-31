@@ -35,15 +35,19 @@ namespace BikeWorkshop.MVC.Controllers
         //------------------------------------------------------- Create ---------------------------------
         //------------------------------------------------------------------------------------------------
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
+            //if(!User.IsInRole("Admin"))
+            //{
+            //    return RedirectToAction("NoAccess", "BikeWorkshop");
+            //}
             return View();
         }
 
         [HttpPost]
-		[Authorize]
-		public async Task<IActionResult> Create(CreateBikeWorkshopCommand command)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(CreateBikeWorkshopCommand command)
         {
             if (!ModelState.IsValid)
             {

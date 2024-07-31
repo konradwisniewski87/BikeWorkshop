@@ -19,9 +19,15 @@ namespace BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop
 		}
         public async Task<Unit> Handle(CreateBikeWorkshopCommand request, CancellationToken cancellationToken)
 		{
-			var bikeWorkshop = _mapper.Map<Domain.Entities.BikeWorkshop>(request);
+			var currentUser = _userContext.GetCurrentUser();
+            if (currentUser == null || !currentUser.IsInRole("Admin"))
+            {
+                return Unit.Value;
+            }
+
+            var bikeWorkshop = _mapper.Map<Domain.Entities.BikeWorkshop>(request);
 			bikeWorkshop.EncodName();
-			bikeWorkshop.CreatedById = _userContext.GetCurrentUser().Id;
+			bikeWorkshop.CreatedById = currentUser.Id;
 			await _bikeWorkshopRepository.Create(bikeWorkshop);
 			return Unit.Value;
 		}

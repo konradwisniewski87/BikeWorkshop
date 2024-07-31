@@ -21,8 +21,10 @@ namespace BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop
         {
             var bikeWorkshop = await _bikeWorkshopRepository.GetByEncodedName(request.EncodedName!);
 
+            if (bikeWorkshop is null) { return Unit.Value; }
+
             var user = _userContext.GetCurrentUser();
-            var isEditable = user != null && bikeWorkshop != null && bikeWorkshop.CreatedById == user.Id;
+            var isEditable = user != null && bikeWorkshop != null && (user.IsInRole("Moderator") || bikeWorkshop.CreatedById == user.Id);
             if(!isEditable)
             {
                 return Unit.Value;

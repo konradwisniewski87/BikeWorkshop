@@ -31,8 +31,9 @@ namespace BikeWorkshop.Application.ApplicationUser
 
 			var id = user.FindFirst(l => l.Type == ClaimTypes.NameIdentifier)!.Value;
 			var email = user.FindFirst(l => l.Type == ClaimTypes.Email)!.Value;
+			var roles = user.Claims.Where(l => l.Type == ClaimTypes.Role).Select(l => l.Value); //user have many roles
 			
-			return new CurrentUser(id, email);
+			return new CurrentUser(id, email, roles);
 		}
 	}
 }

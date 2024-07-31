@@ -24,7 +24,7 @@ namespace BikeWorkshop.Application.Mappings
             )); 
 
             CreateMap<Domain.Entities.BikeWorkshop, BikeWorkshopDto>()
-                .ForMember(dst => dst.IsEditable4You,   opt => opt.MapFrom(src => src != null && src.CreatedById == user.Id))
+                .ForMember(dst => dst.IsEditable4You,   opt => opt.MapFrom(src => src != null && (src.CreatedById == user.Id || user.IsInRole("Moderator"))))
                 .ForMember(dst => dst.PhoneNumber,      opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber))
                 .ForMember(dst => dst.Street,           opt => opt.MapFrom(src => src.ContactDetails.Street))
                 .ForMember(dst => dst.City,             opt => opt.MapFrom(src => src.ContactDetails.City))
