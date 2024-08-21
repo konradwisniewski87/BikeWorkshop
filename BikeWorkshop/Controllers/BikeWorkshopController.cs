@@ -3,9 +3,12 @@ using BikeWorkshop.Application.BikeWorkshop.Commands.CreateBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Queries.GetAllBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Queries.GetBikeWorkshopByEncodedName;
+using BikeWorkshop.MVC.Extensions;
+using BikeWorkshop.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BikeWorkshop.MVC.Controllers
 {
@@ -54,6 +57,8 @@ namespace BikeWorkshop.MVC.Controllers
                 return View(command);
             }
             await _mediator.Send(command);
+            this.SetNotification("success", $"Created bikeworkshop: {command.Name}");
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -108,7 +113,7 @@ namespace BikeWorkshop.MVC.Controllers
         public async Task<IActionResult> Edit(string encodedName, EditBikeWorkshopCommand command)
         {
             if (!ModelState.IsValid)
-            {
+            {   
                 return View(command);
             }
             await _mediator.Send(command);
@@ -118,7 +123,7 @@ namespace BikeWorkshop.MVC.Controllers
 
 
         //------------------------------------------------------------------------------------------------
-        //------------------------------------------------------- Home -----------------------------------
+        //------------------------------------------------------ NoAccess --------------------------------
         //------------------------------------------------------------------------------------------------
         public IActionResult NoAccess()
         {
