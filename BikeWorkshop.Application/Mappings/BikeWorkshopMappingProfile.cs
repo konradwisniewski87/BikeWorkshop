@@ -2,6 +2,7 @@
 using BikeWorkshop.Application.ApplicationUser;
 using BikeWorkshop.Application.BikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop;
+using BikeWorkshop.Application.BikeWorkshopService;
 using BikeWorkshop.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using static System.Net.WebRequestMethods;
@@ -32,6 +33,9 @@ namespace BikeWorkshop.Application.Mappings
                 .ForMember(dst => dst.PhoneNumber,      opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber));
 
             CreateMap<BikeWorkshopDto, EditBikeWorkshopCommand>();
+
+            CreateMap<BikeWorkshopServiceDto, Domain.Entities.BikeWorkshopService>()
+                .ReverseMap();
         }
     }
 }

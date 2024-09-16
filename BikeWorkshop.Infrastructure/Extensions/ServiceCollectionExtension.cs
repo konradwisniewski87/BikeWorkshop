@@ -26,6 +26,7 @@ namespace BikeWorkshop.Infrastructure.Extensions
             services.AddScoped<BikeWorkshopSeeder>();
 
             services.AddScoped<IBikeWorkshopRepository, BikeWorkshopRepository>();
+            services.AddScoped<IBikeWorkshopServiceRepository, BikeWorkshopServiceRepository>();
         }
     }
 }

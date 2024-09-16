@@ -14,5 +14,6 @@ namespace BikeWorkshop.Domain.Entities
         public string? About { get; set; }
         public string? CreatedById { get; set; }
 		public IdentityUser? CreatedBy { get; set; }
+        public List<BikeWorkshopService> Services { get; set; } = new();
 	}
 }
