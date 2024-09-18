@@ -4,23 +4,22 @@ using BikeWorkshop.Application.BikeWorkshop.Commands.EditBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Queries.GetAllBikeWorkshop;
 using BikeWorkshop.Application.BikeWorkshop.Queries.GetBikeWorkshopByEncodedName;
 using BikeWorkshop.MVC.Extensions;
-using BikeWorkshop.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using BikeWorkshop.Application.BikeWorkshopService.Commands;
 
 namespace BikeWorkshop.MVC.Controllers
 {
     public class BikeWorkshopController : Controller
     {
-		private readonly IMediator _mediator;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
 
         public BikeWorkshopController(IMediator mediator, IMapper mapper)
         {
-			_mediator = mediator;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -62,7 +61,6 @@ namespace BikeWorkshop.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         //------------------------------------------------------------------------------------------------
         //------------------------------------------------------- Index ----------------------------------
         //------------------------------------------------------------------------------------------------
@@ -86,11 +84,11 @@ namespace BikeWorkshop.MVC.Controllers
         //------------------------------------------------------- Details --------------------------------
         //------------------------------------------------------------------------------------------------
         [Route("BikeWorkshop/{encodedName}/Details")]
-		public async Task<IActionResult> Details(string encodedName)
-		{
+        public async Task<IActionResult> Details(string encodedName)
+        {
             var bikeWorkshop = await _mediator.Send(new GetBikeWorkshopByEncodedNameQuery(encodedName));
-			return View(bikeWorkshop);
-		}
+            return View(bikeWorkshop);
+        }
 
 
         //------------------------------------------------------------------------------------------------
@@ -113,7 +111,7 @@ namespace BikeWorkshop.MVC.Controllers
         public async Task<IActionResult> Edit(string encodedName, EditBikeWorkshopCommand command)
         {
             if (!ModelState.IsValid)
-            {   
+            {
                 return View(command);
             }
             await _mediator.Send(command);
@@ -136,6 +134,23 @@ namespace BikeWorkshop.MVC.Controllers
         public IActionResult Home()
         {
             return RedirectToAction(nameof(Index));
-		}
-	}
+        }
+
+        //------------------------------------------------------------------------------------------------
+        //------------------------------------------------------- CreateBikeWorkshopService ---------------
+        //------------------------------------------------------------------------------------------------
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("BikeWorkshop/BikeWorkshopService")]
+        public async Task<IActionResult> CreateBikeWorkshopService(CreateBikeWorkshopServiceCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+    }
 }
